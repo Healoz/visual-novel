@@ -5,17 +5,19 @@ export interface Character {
   }
   
   export interface Choice {
+    id: string,
     label: string;
-    nextBeatId: number; // ID of the next story beat to go to
+    nextBeatId: string; // ID of the next story beat to go to
   }
 
   export interface Dialogue {
+    id: string;
     character?: Character;
     line: string;
   }
   
   export interface StoryBeat {
-    id: number;
+    id: string;
     dialogue: Dialogue[]; // Now contains multiple dialogues
     choices: Choice[];
   }
