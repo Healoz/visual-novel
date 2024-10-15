@@ -29,21 +29,20 @@ const DialogueCell: FC<DialogueCellProps> = ({
       dialogue: updatedDialogue,
     });
   };
+
   // handle character change
   const handleCharacterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const updatedDialogue = [...storyBeat.dialogue];
-    // Find the character object that matches the selected name
     const selectedCharacterName = e.target.value;
 
     const character = characters.find(
       (character) => character.name === selectedCharacterName
     );
 
-    // Only update if character is found
     if (character) {
       updatedDialogue[index] = {
         ...dialogue,
-        character: character, // Make sure this is correct based on your Dialogue type
+        character: character, // Store the whole character object or just the name
       };
 
       updateStoryBeat(storyBeat.id, {
@@ -84,13 +83,17 @@ const DialogueCell: FC<DialogueCellProps> = ({
   };
 
   const characterOptions = characters.map((character) => (
-    <option key={character.id} value={character.name}>
+    <option
+      key={character.id}
+      style={{ color: character.color }}
+      value={character.name}
+    >
       {character.name}
     </option>
   ));
 
   return (
-    <div key={dialogue.id} className="  flex gap-3">
+    <div key={dialogue.id} className="flex gap-3">
       <div className="flex flex-col">
         <button className="w-20 border" onClick={() => moveDialogueUp(index)}>
           ^
@@ -105,11 +108,12 @@ const DialogueCell: FC<DialogueCellProps> = ({
           name="character-speaking"
           className="border"
           onChange={handleCharacterChange}
+          value={dialogue.character?.name || ""} // Reflect current character in select
+          style={{ color: dialogue.character?.color }}
         >
-          <option value="" disabled selected>
+          <option value="" disabled>
             Select a character
           </option>
-          <option value="narrator">Narrator</option>
           {characterOptions}
         </select>
         <textarea
