@@ -1,11 +1,12 @@
 import React, { FC } from "react";
-import { Dialogue, StoryBeat } from "../types";
+import { Character, Dialogue, StoryBeat } from "../types";
 
 interface DialogueCellProps {
   dialogue: Dialogue;
   storyBeat: StoryBeat;
   updateStoryBeat: (storyBeatId: string, updatedStoryBeat: StoryBeat) => void;
   index: number;
+  characters: Character[];
 }
 
 const DialogueCell: FC<DialogueCellProps> = ({
@@ -13,6 +14,7 @@ const DialogueCell: FC<DialogueCellProps> = ({
   updateStoryBeat,
   storyBeat,
   index,
+  characters,
 }) => {
   // handle dialogue change
   const handleDialogueChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -27,6 +29,30 @@ const DialogueCell: FC<DialogueCellProps> = ({
       dialogue: updatedDialogue,
     });
   };
+  // handle character change
+  const handleCharacterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const updatedDialogue = [...storyBeat.dialogue];
+    // Find the character object that matches the selected name
+    const selectedCharacterName = e.target.value;
+
+    const character = characters.find(
+      (character) => character.name === selectedCharacterName
+    );
+
+    // Only update if character is found
+    if (character) {
+      updatedDialogue[index] = {
+        ...dialogue,
+        character: character, // Make sure this is correct based on your Dialogue type
+      };
+
+      updateStoryBeat(storyBeat.id, {
+        ...storyBeat,
+        dialogue: updatedDialogue,
+      });
+    }
+  };
+
   // moving dialogue up and down
   const moveDialogueUp = (index: number) => {
     if (index > 0) {
@@ -56,6 +82,13 @@ const DialogueCell: FC<DialogueCellProps> = ({
       });
     }
   };
+
+  const characterOptions = characters.map((character) => (
+    <option key={character.id} value={character.name}>
+      {character.name}
+    </option>
+  ));
+
   return (
     <div key={dialogue.id} className="  flex gap-3">
       <div className="flex flex-col">
@@ -71,13 +104,13 @@ const DialogueCell: FC<DialogueCellProps> = ({
           id="character-speaking"
           name="character-speaking"
           className="border"
+          onChange={handleCharacterChange}
         >
           <option value="" disabled selected>
             Select a character
           </option>
           <option value="narrator">Narrator</option>
-          <option value="bob">Bob</option>
-          <option value="jim">Jim</option>
+          {characterOptions}
         </select>
         <textarea
           className="border flex p-2"

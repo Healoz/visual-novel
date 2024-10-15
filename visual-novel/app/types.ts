@@ -1,5 +1,6 @@
 // types.ts
 export interface Character {
+    id: string;
     name: string;
     color: string;
   }
@@ -25,6 +26,7 @@ export interface Character {
   export interface Story {
     title: string;
     blurb: string;
-    storySequence: StoryBeat[];
+    storyBeats: StoryBeat[];
+    characters: Character[];
   }
   

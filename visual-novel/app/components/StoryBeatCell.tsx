@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { StoryBeat } from "../types";
+import { Character, StoryBeat } from "../types";
 import DialogueCell from "./DialogueCell";
 
 interface StoryBeatCellProps {
@@ -7,6 +7,7 @@ interface StoryBeatCellProps {
   createNewDialogue: (storyBeatId: string) => void;
   createNewChoice: (storyBeatId: string) => void;
   updateStoryBeat: (storyBeatId: string, updatedStoryBeat: StoryBeat) => void;
+  characters: Character[];
 }
 
 const StoryBeatCell: FC<StoryBeatCellProps> = ({
@@ -14,6 +15,7 @@ const StoryBeatCell: FC<StoryBeatCellProps> = ({
   createNewDialogue,
   createNewChoice,
   updateStoryBeat,
+  characters,
 }) => {
   const dialogueContent = storyBeat.dialogue.map((singleDialogue, index) => (
     <DialogueCell
@@ -21,6 +23,7 @@ const StoryBeatCell: FC<StoryBeatCellProps> = ({
       storyBeat={storyBeat}
       updateStoryBeat={updateStoryBeat}
       index={index}
+      characters={characters}
     ></DialogueCell>
   ));
 
