@@ -35,21 +35,29 @@ const DialogueCell: FC<DialogueCellProps> = ({
     const updatedDialogue = [...storyBeat.dialogue];
     const selectedCharacterName = e.target.value;
 
-    const character = characters.find(
-      (character) => character.name === selectedCharacterName
-    );
-
-    if (character) {
+    // Check if narrator is selected
+    if (selectedCharacterName === "narrator") {
       updatedDialogue[index] = {
         ...dialogue,
-        character: character, // Store the whole character object or just the name
+        character: undefined, // No character associated with narrator
       };
+    } else {
+      const character = characters.find(
+        (character) => character.name === selectedCharacterName
+      );
 
-      updateStoryBeat(storyBeat.id, {
-        ...storyBeat,
-        dialogue: updatedDialogue,
-      });
+      if (character) {
+        updatedDialogue[index] = {
+          ...dialogue,
+          character: character, // Store the whole character object
+        };
+      }
     }
+
+    updateStoryBeat(storyBeat.id, {
+      ...storyBeat,
+      dialogue: updatedDialogue,
+    });
   };
 
   // moving dialogue up and down
@@ -108,11 +116,14 @@ const DialogueCell: FC<DialogueCellProps> = ({
           name="character-speaking"
           className="border"
           onChange={handleCharacterChange}
-          value={dialogue.character?.name || ""} // Reflect current character in select
+          value={dialogue.character ? dialogue.character.name : "narrator"} // Set value to narrator if no character is selected
           style={{ color: dialogue.character?.color }}
         >
           <option value="" disabled>
             Select a character
+          </option>
+          <option value="narrator" style={{ color: "#000" }}>
+            Narrator
           </option>
           {characterOptions}
         </select>

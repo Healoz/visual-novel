@@ -3,7 +3,8 @@ import { useState } from "react";
 import PageContainer from "../components/PageContainer";
 import { Character, Choice, Dialogue, Story, StoryBeat } from "../types";
 import { v4 as uuidv4 } from "uuid";
-import StoryBeatCell from "../components/StoryBeatCell";
+import EditStoryBeatCell from "../components/EditStoryBeatCell";
+import CharacterDisplay from "../components/CharacterDisplay";
 
 export default function StoryEditorPage() {
   const [story, setStory] = useState<Story>({
@@ -35,6 +36,15 @@ export default function StoryEditorPage() {
     };
 
     setStory({ ...story, storyBeats: [...story.storyBeats, newStoryBeat] });
+  };
+
+  const deleteStoryBeat = (id: string) => {
+    setStory((prevStory) => ({
+      ...prevStory,
+      storyBeats: prevStory.storyBeats.filter(
+        (storyBeat) => storyBeat.id !== id
+      ),
+    }));
   };
 
   // Creates a blank Choice
@@ -96,51 +106,33 @@ export default function StoryEditorPage() {
   };
 
   const storyBeatsContent = story.storyBeats.map((storyBeat) => (
-    <StoryBeatCell
+    <EditStoryBeatCell
       storyBeat={storyBeat}
       createNewChoice={createNewChoice}
       createNewDialogue={createNewDialogue}
       updateStoryBeat={updateStoryBeat}
       characters={story.characters}
-    ></StoryBeatCell>
-  ));
-
-  const charactersContent = story.characters.map((character) => (
-    <div style={{ color: character.color }}>{character.name}</div>
+      deleteStoryBeat={deleteStoryBeat}
+      storyBeats={story.storyBeats}
+    ></EditStoryBeatCell>
   ));
 
   return (
     <PageContainer>
       <h1 className="text-3xl">Create new story</h1>
       <input placeholder="story name" className="border p-2"></input>
-      <section>
-        <h2>Characters</h2>
-        <input
-          placeholder="character name"
-          className="border p-2"
-          value={characterName}
-          onChange={(e) => setCharacterName(e.target.value)}
-          style={{ color: characterColor }}
-        ></input>
-        <input
-          type="color"
-          value={characterColor}
-          onChange={(e) => setCharacterColor(e.target.value)}
-        ></input>
-        <button className="border p-2" onClick={handleCreateCharacter}>
-          Create character
-        </button>
-        {story.characters.length >= 1 ? (
-          <div className="flex gap-2">{charactersContent}</div>
-        ) : (
-          <p>There are no characters, create one</p>
-        )}
-      </section>
+      <CharacterDisplay
+        story={story}
+        characterColor={characterColor}
+        characterName={characterName}
+        handleCreateCharacter={handleCreateCharacter}
+        setCharacterName={setCharacterName}
+        setCharacterColor={setCharacterColor}
+      />
       <section>
         <button className="border p-2 mb-4" onClick={createNewStoryBeat}>
           New story beat
         </button>
-
         <div>{storyBeatsContent}</div>
       </section>
     </PageContainer>

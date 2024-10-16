@@ -12,7 +12,7 @@ export default function Home() {
       <Link href="/read" className="border p-2">
         Read stories
       </Link>
-      <Link href="/story-editor" className="border p-2">
+      <Link href="/new-story" className="border p-2">
         Create new story
       </Link>
     </PageContainer>
