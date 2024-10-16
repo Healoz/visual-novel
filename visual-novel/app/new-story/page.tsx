@@ -38,6 +38,7 @@ export default function StoryEditorPage() {
     setStory({ ...story, storyBeats: [...story.storyBeats, newStoryBeat] });
   };
 
+  // delete storyBeat
   const deleteStoryBeat = (id: string) => {
     setStory((prevStory) => ({
       ...prevStory,
@@ -45,6 +46,18 @@ export default function StoryEditorPage() {
         (storyBeat) => storyBeat.id !== id
       ),
     }));
+  };
+
+  // delete dialogue
+  const deleteDialogue = (storyBeat: StoryBeat, dialogueId: string) => {
+    const updatedDialogue = storyBeat.dialogue.filter(
+      (singleDialogue) => singleDialogue.id !== dialogueId
+    );
+
+    updateStoryBeat(storyBeat.id, {
+      ...storyBeat,
+      dialogue: updatedDialogue,
+    });
   };
 
   // Creates a blank Choice
@@ -113,6 +126,7 @@ export default function StoryEditorPage() {
       updateStoryBeat={updateStoryBeat}
       characters={story.characters}
       deleteStoryBeat={deleteStoryBeat}
+      deleteDialogue={deleteDialogue}
       storyBeats={story.storyBeats}
     ></EditStoryBeatCell>
   ));

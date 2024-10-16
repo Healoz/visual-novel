@@ -7,6 +7,7 @@ interface DialogueCellProps {
   updateStoryBeat: (storyBeatId: string, updatedStoryBeat: StoryBeat) => void;
   index: number;
   characters: Character[];
+  deleteDialogue: (storyBeat: StoryBeat, dialogueId: string) => void;
 }
 
 const DialogueCell: FC<DialogueCellProps> = ({
@@ -15,6 +16,7 @@ const DialogueCell: FC<DialogueCellProps> = ({
   storyBeat,
   index,
   characters,
+  deleteDialogue,
 }) => {
   // handle dialogue change
   const handleDialogueChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -133,6 +135,14 @@ const DialogueCell: FC<DialogueCellProps> = ({
           onChange={handleDialogueChange}
           placeholder="dialogue"
         ></textarea>
+      </div>
+      <div>
+        <button
+          className="border p-1"
+          onClick={() => deleteDialogue(storyBeat, dialogue.id)}
+        >
+          X
+        </button>
       </div>
     </div>
   );

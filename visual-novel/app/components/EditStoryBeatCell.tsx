@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Character, StoryBeat } from "../types";
 import DialogueCell from "./DialogueCell";
 
-interface StoryBeatCellProps {
+interface EditStoryBeatCellProps {
   storyBeat: StoryBeat;
   createNewDialogue: (storyBeatId: string) => void;
   createNewChoice: (storyBeatId: string) => void;
@@ -10,9 +10,10 @@ interface StoryBeatCellProps {
   characters: Character[];
   deleteStoryBeat: (id: string) => void;
   storyBeats: StoryBeat[];
+  deleteDialogue: (storyBeat: StoryBeat, dialogueId: string) => void;
 }
 
-const StoryBeatCell: FC<StoryBeatCellProps> = ({
+const StoryBeatCell: FC<EditStoryBeatCellProps> = ({
   storyBeat,
   createNewDialogue,
   createNewChoice,
@@ -20,6 +21,7 @@ const StoryBeatCell: FC<StoryBeatCellProps> = ({
   characters,
   deleteStoryBeat,
   storyBeats,
+  deleteDialogue,
 }) => {
   const dialogueContent = storyBeat.dialogue.map((singleDialogue, index) => (
     <DialogueCell
@@ -28,6 +30,7 @@ const StoryBeatCell: FC<StoryBeatCellProps> = ({
       updateStoryBeat={updateStoryBeat}
       index={index}
       characters={characters}
+      deleteDialogue={deleteDialogue}
     ></DialogueCell>
   ));
 
