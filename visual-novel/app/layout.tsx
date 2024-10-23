@@ -21,6 +21,7 @@ export default function RootLayout({
           <Link href="/my-stories">My Stories</Link>
           <Link href="/browse">Browse</Link>
           <Link href="/new-story">New Story</Link>
+          <Link href="/flow-test">Flow Test</Link>
         </nav>
         {children}
       </body>
