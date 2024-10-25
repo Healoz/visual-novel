@@ -12,10 +12,13 @@ import {
   EdgeChange,
   Background,
   BackgroundVariant,
+  Controls,
+  MiniMap,
 } from "@xyflow/react";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
 import "@xyflow/react/dist/style.css";
+import { Choice, Story, StoryBeat } from "../types";
 
 //DOCUMENTATION: https://reactflow.dev/learn
 const initialNodes: Node[] = [
@@ -26,6 +29,13 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [{ id: "e1-2", source: "1", target: "2" }];
 
 export default function FlowTestPage() {
+  const [story, setStory] = useState<Story>({
+    title: "",
+    blurb: "",
+    characters: [],
+    storyBeats: [],
+  });
+
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
@@ -45,9 +55,14 @@ export default function FlowTestPage() {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
         >
+          <Controls />
+          <MiniMap />
           <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
         </ReactFlow>
       </div>
     </PageContainer>
   );
+}
+function uuidv4(): string {
+  throw new Error("Function not implemented.");
 }

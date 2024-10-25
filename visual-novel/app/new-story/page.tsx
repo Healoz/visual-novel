@@ -60,6 +60,18 @@ export default function StoryEditorPage() {
     });
   };
 
+  // delete choice
+  const deleteChoice = (storyBeat: StoryBeat, choiceId: string) => {
+    const updatedChoices = storyBeat.choices.filter(
+      (choice) => choice.id !== choiceId
+    );
+
+    updateStoryBeat(storyBeat.id, {
+      ...storyBeat,
+      choices: updatedChoices,
+    });
+  };
+
   // Creates a blank Choice
   const createNewChoice = (storyBeatId: string) => {
     const newChoice: Choice = {
@@ -128,6 +140,7 @@ export default function StoryEditorPage() {
       deleteStoryBeat={deleteStoryBeat}
       deleteDialogue={deleteDialogue}
       storyBeats={story.storyBeats}
+      deleteChoice={deleteChoice}
     ></EditStoryBeatCell>
   ));
 

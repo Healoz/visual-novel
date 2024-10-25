@@ -11,6 +11,7 @@ interface EditStoryBeatCellProps {
   deleteStoryBeat: (id: string) => void;
   storyBeats: StoryBeat[];
   deleteDialogue: (storyBeat: StoryBeat, dialogueId: string) => void;
+  deleteChoice: (storyBeat: StoryBeat, choiceId: string) => void;
 }
 
 const StoryBeatCell: FC<EditStoryBeatCellProps> = ({
@@ -22,6 +23,7 @@ const StoryBeatCell: FC<EditStoryBeatCellProps> = ({
   deleteStoryBeat,
   storyBeats,
   deleteDialogue,
+  deleteChoice,
 }) => {
   const dialogueContent = storyBeat.dialogue.map((singleDialogue, index) => (
     <DialogueCell
@@ -47,12 +49,18 @@ const StoryBeatCell: FC<EditStoryBeatCellProps> = ({
   );
 
   const choiceContent = storyBeat.choices.map((choice, index) => (
-    <div key={choice.id} className="border">
+    <div key={choice.id} className="border flex gap-2 p-2">
       <label htmlFor={`choiceLabel-${choice.id}`}>Choice text</label>
       <textarea name={`choiceLabel-${choice.id}`} className="border"></textarea>
       <select id="next-beat-id" name="net-beat-id" className="border">
         {possibleNextBeatsContent}
       </select>
+      <button
+        className="border bg-red-400 p-1"
+        onClick={() => deleteChoice(storyBeat, choice.id)}
+      >
+        X
+      </button>
     </div>
   ));
 
