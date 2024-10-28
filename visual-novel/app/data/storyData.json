@@ -1,0 +1,128 @@
+{
+    "title": "The Mysterious Mansion",
+    "blurb": "A thrilling adventure in an abandoned mansion where every choice matters.",
+    "characters": [
+      {
+        "id": "char1",
+        "name": "Detective Smith",
+        "color": "#2563eb"
+      },
+      {
+        "id": "char2",
+        "name": "Ghost Lucy",
+        "color": "#9333ea"
+      },
+      {
+        "id": "char3",
+        "name": "Butler Jenkins",
+        "color": "#dc2626"
+      }
+    ],
+    "storyBeats": [
+      {
+        "id": "beat1",
+        "dialogue": [
+          {
+            "id": "d1",
+            "character": {
+              "id": "char1",
+              "name": "Detective Smith",
+              "color": "#2563eb"
+            },
+            "line": "This mansion has been abandoned for years. Something doesn't feel right..."
+          },
+          {
+            "id": "d2",
+            "character": {
+              "id": "char2",
+              "name": "Ghost Lucy",
+              "color": "#9333ea"
+            },
+            "line": "*whispers* Welcome, detective..."
+          }
+        ],
+        "choices": [
+          {
+            "id": "c1",
+            "label": "Investigate the strange noise",
+            "nextBeatId": "beat2"
+          },
+          {
+            "id": "c2",
+            "label": "Check the main hall first",
+            "nextBeatId": "beat3"
+          }
+        ]
+      },
+      {
+        "id": "beat2",
+        "dialogue": [
+          {
+            "id": "d3",
+            "character": {
+              "id": "char2",
+              "name": "Ghost Lucy",
+              "color": "#9333ea"
+            },
+            "line": "You're braver than most who enter here..."
+          },
+          {
+            "id": "d4",
+            "character": {
+              "id": "char1",
+              "name": "Detective Smith",
+              "color": "#2563eb"
+            },
+            "line": "Who's there? Show yourself!"
+          }
+        ],
+        "choices": [
+          {
+            "id": "c3",
+            "label": "Run away",
+            "nextBeatId": "beat3"
+          },
+          {
+            "id": "c4",
+            "label": "Try to communicate with the ghost",
+            "nextBeatId": "beat1"
+          }
+        ]
+      },
+      {
+        "id": "beat3",
+        "dialogue": [
+          {
+            "id": "d5",
+            "character": {
+              "id": "char3",
+              "name": "Butler Jenkins",
+              "color": "#dc2626"
+            },
+            "line": "Good evening, sir. I've been expecting you."
+          },
+          {
+            "id": "d6",
+            "character": {
+              "id": "char1",
+              "name": "Detective Smith",
+              "color": "#2563eb"
+            },
+            "line": "A butler? In an abandoned mansion?"
+          }
+        ],
+        "choices": [
+          {
+            "id": "c5",
+            "label": "Question the butler",
+            "nextBeatId": "beat1"
+          },
+          {
+            "id": "c6",
+            "label": "Follow the butler",
+            "nextBeatId": "beat2"
+          }
+        ]
+      }
+    ]
+  }
