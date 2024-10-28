@@ -105,6 +105,7 @@ export default function FlowTestPage() {
           if (!edgeExists) {
             newEdges.push({
               id: `e-${storyBeat.id}-${choice.nextBeatId}`,
+              label: choice.label,
               source: storyBeat.id,
               target: choice.nextBeatId,
             });
