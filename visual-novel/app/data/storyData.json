@@ -1,128 +1,118 @@
 {
-    "title": "The Mysterious Mansion",
-    "blurb": "A thrilling adventure in an abandoned mansion where every choice matters.",
-    "characters": [
-      {
-        "id": "char1",
-        "name": "Detective Smith",
-        "color": "#2563eb"
-      },
-      {
-        "id": "char2",
-        "name": "Ghost Lucy",
-        "color": "#9333ea"
-      },
-      {
-        "id": "char3",
-        "name": "Butler Jenkins",
-        "color": "#dc2626"
-      }
-    ],
-    "storyBeats": [
-      {
-        "id": "beat1",
-        "dialogue": [
-          {
-            "id": "d1",
-            "character": {
-              "id": "char1",
-              "name": "Detective Smith",
-              "color": "#2563eb"
-            },
-            "line": "This mansion has been abandoned for years. Something doesn't feel right..."
+  "title": "The Mysterious Mansion",
+  "blurb": "A thrilling adventure in an abandoned mansion where every choice matters.",
+  "characters": [
+    {
+      "id": "char1",
+      "name": "Detective Smith",
+      "color": "#2563eb"
+    },
+    {
+      "id": "char2",
+      "name": "Ghost Lucy",
+      "color": "#9333ea"
+    },
+    {
+      "id": "char3",
+      "name": "Butler Jenkins",
+      "color": "#dc2626"
+    }
+  ],
+  "storyBeats": [
+    {
+      "id": "beat1",
+      "dialogue": [
+        {
+          "id": "n1",
+          "line": "The detective stepped into the mansion, the scent of damp wood and dust filling the air. Shadows clung to every corner, as if hiding secrets long forgotten."
+        },
+        {
+          "id": "d1",
+          "character": {
+            "id": "char1",
+            "name": "Detective Smith",
+            "color": "#2563eb"
           },
-          {
-            "id": "d2",
-            "character": {
-              "id": "char2",
-              "name": "Ghost Lucy",
-              "color": "#9333ea"
-            },
-            "line": "*whispers* Welcome, detective..."
-          }
-        ],
-        "choices": [
-          {
-            "id": "c1",
-            "label": "Investigate the strange noise",
-            "nextBeatId": "beat2"
+          "line": "This mansion has been abandoned for years. Something doesn't feel right..."
+        },
+        {
+          "id": "d2",
+          "character": {
+            "id": "char2",
+            "name": "Ghost Lucy",
+            "color": "#9333ea"
           },
-          {
-            "id": "c2",
-            "label": "Check the main hall first",
-            "nextBeatId": "beat3"
-          }
-        ]
-      },
-      {
-        "id": "beat2",
-        "dialogue": [
-          {
-            "id": "d3",
-            "character": {
-              "id": "char2",
-              "name": "Ghost Lucy",
-              "color": "#9333ea"
-            },
-            "line": "You're braver than most who enter here..."
+          "line": "*whispers* Welcome, detective..."
+        }
+      ],
+      "choices": [
+        {
+          "id": "c1",
+          "label": "Investigate the strange noise",
+          "nextBeatId": "beat2"
+        },
+        {
+          "id": "c2",
+          "label": "Check the main hall first",
+          "nextBeatId": "beat3"
+        }
+      ]
+    },
+    {
+      "id": "beat2",
+      "dialogue": [
+        {
+          "id": "n2",
+          "line": "A cold breeze swept through the hall, carrying with it the faint echo of footsteps from somewhere deeper inside."
+        },
+        {
+          "id": "d3",
+          "character": {
+            "id": "char2",
+            "name": "Ghost Lucy",
+            "color": "#9333ea"
           },
-          {
-            "id": "d4",
-            "character": {
-              "id": "char1",
-              "name": "Detective Smith",
-              "color": "#2563eb"
-            },
-            "line": "Who's there? Show yourself!"
-          }
-        ],
-        "choices": [
-          {
-            "id": "c3",
-            "label": "Run away",
-            "nextBeatId": "beat3"
+          "line": "You're braver than most who enter here..."
+        },
+        {
+          "id": "d4",
+          "character": {
+            "id": "char1",
+            "name": "Detective Smith",
+            "color": "#2563eb"
           },
-          {
-            "id": "c4",
-            "label": "Try to communicate with the ghost",
-            "nextBeatId": "beat1"
-          }
-        ]
-      },
-      {
-        "id": "beat3",
-        "dialogue": [
-          {
-            "id": "d5",
-            "character": {
-              "id": "char3",
-              "name": "Butler Jenkins",
-              "color": "#dc2626"
-            },
-            "line": "Good evening, sir. I've been expecting you."
+          "line": "Who's there? Show yourself!"
+        }
+      ],
+      "choices": []
+    },
+    {
+      "id": "beat3",
+      "dialogue": [
+        {
+          "id": "n3",
+          "line": "At the far end of the hall, the butler emerged from the shadows, his face obscured in darkness, yet his voice resonated with eerie clarity."
+        },
+        {
+          "id": "d5",
+          "character": {
+            "id": "char3",
+            "name": "Butler Jenkins",
+            "color": "#dc2626"
           },
-          {
-            "id": "d6",
-            "character": {
-              "id": "char1",
-              "name": "Detective Smith",
-              "color": "#2563eb"
-            },
-            "line": "A butler? In an abandoned mansion?"
-          }
-        ],
-        "choices": [
-          {
-            "id": "c5",
-            "label": "Question the butler",
-            "nextBeatId": "beat1"
+          "line": "Good evening, sir. I've been expecting you."
+        },
+        {
+          "id": "d6",
+          "character": {
+            "id": "char1",
+            "name": "Detective Smith",
+            "color": "#2563eb"
           },
-          {
-            "id": "c6",
-            "label": "Follow the butler",
-            "nextBeatId": "beat2"
-          }
-        ]
-      }
-    ]
-  }
+          "line": "A butler? In an abandoned mansion?"
+        }
+      ],
+      "choices": []
+    }
+  ]
+}

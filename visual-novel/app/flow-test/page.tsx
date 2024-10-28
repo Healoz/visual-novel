@@ -43,7 +43,6 @@ export default function FlowTestPage() {
   // creating nodes functions
   const createNodesFromStoryBeats = useCallback(
     (storyBeats: StoryBeat[], existingNodes: Node[]) => {
-      // You had "StoryBeat[] =>" which is incorrect
       const minX = 0;
       const maxX = 800;
       const minY = 0;
@@ -92,14 +91,41 @@ export default function FlowTestPage() {
 
   const createEdgeFromChoices = useCallback(
     (storyBeats: StoryBeat[], existingEdges: Edge[]) => {
-      return [...existingEdges];
+      const newEdges: Edge[] = [];
+
+      // first loop through each storyBeat in storybeats
+      storyBeats.forEach((storyBeat) => {
+        //For each choice in the choices array of a storyBeat, check if there’s already an edge that connects from this storyBeat.id to the choice.nextBeatId.
+        storyBeat.choices.forEach((choice) => {
+          const edgeExists = existingEdges.some(
+            (edge) =>
+              edge.source === storyBeat.id && edge.target === choice.nextBeatId
+          );
+
+          if (!edgeExists) {
+            newEdges.push({
+              id: `e-${storyBeat.id}-${choice.nextBeatId}`,
+              source: storyBeat.id,
+              target: choice.nextBeatId,
+            });
+          }
+        });
+      });
+
+      return [...existingEdges, ...newEdges];
     },
     []
   );
 
+  useEffect(() => {
+    setEdges((existingEdges) =>
+      createEdgeFromChoices(story.storyBeats, existingEdges)
+    );
+  }, [story, createEdgeFromChoices, setEdges]);
+
   return (
     <div className="h-[50rem] w-full">
-      <h1 className="text-3xl">Flow Test</h1>
+      <h1 className="text-3xl mb-3">Flow Test</h1>
       <button className="border p-3 mb-3" onClick={createNewStoryBeat}>
         Create new story beat
       </button>
