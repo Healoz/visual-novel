@@ -84,11 +84,35 @@ export default function FlowTestPage() {
 
   // creating edges function
 
+  // when user creates connection
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
+    (connection: Connection) => {
+      setStory((prevStory) => {
+        const updatedStoryBeats = prevStory.storyBeats.map((storyBeat) => {
+          if (storyBeat.id === connection.source) {
+            const newChoice: Choice = {
+              id: `${storyBeat.id}-${connection.target}`,
+              label: `${storyBeat.id}-${connection.target}`,
+              nextBeatId: connection.target,
+            };
+            const updatedChoices = [...storyBeat.choices, newChoice];
+            return { ...storyBeat, choices: updatedChoices };
+          }
+          return storyBeat;
+        });
+
+        return { ...prevStory, storyBeats: updatedStoryBeats };
+      });
+
+      // after storybeats are modified, call the createEdgesFromChoices function
+      setEdges((existingEdges) =>
+        createEdgeFromChoices(story.storyBeats, existingEdges)
+      );
+    },
+    [setEdges, setStory]
   );
 
+  // on startup create edges from story content
   const createEdgeFromChoices = useCallback(
     (storyBeats: StoryBeat[], existingEdges: Edge[]) => {
       const newEdges: Edge[] = [];
@@ -118,11 +142,16 @@ export default function FlowTestPage() {
     []
   );
 
+  // calling function to create edges
   useEffect(() => {
     setEdges((existingEdges) =>
       createEdgeFromChoices(story.storyBeats, existingEdges)
     );
   }, [story, createEdgeFromChoices, setEdges]);
+
+  useEffect(() => {
+    console.log(story);
+  }, [story]);
 
   return (
     <div className="h-[50rem] w-full">
