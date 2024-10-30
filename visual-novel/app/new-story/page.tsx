@@ -5,14 +5,17 @@ import { Character, Choice, Dialogue, Story, StoryBeat } from "../types";
 import { v4 as uuidv4 } from "uuid";
 import EditStoryBeatCell from "../components/EditStoryBeatCell";
 import CharacterDisplay from "../components/CharacterDisplay";
+import storyData from "../data/storyData.json";
 
 export default function StoryEditorPage() {
-  const [story, setStory] = useState<Story>({
-    title: "",
-    blurb: "",
-    characters: [],
-    storyBeats: [],
-  });
+  // const [story, setStory] = useState<Story>({
+  //   title: "",
+  //   blurb: "",
+  //   characters: [],
+  //   storyBeats: [],
+  // });
+
+  const [story, setStory] = useState<Story>(storyData);
 
   const [characterName, setCharacterName] = useState("");
   const [characterColor, setCharacterColor] = useState("#000000"); // default color

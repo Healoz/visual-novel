@@ -21,7 +21,6 @@ import { v4 as uuidv4 } from "uuid";
 import "@xyflow/react/dist/style.css";
 import { Choice, Story, StoryBeat } from "../types";
 import storyData from "../data/storyData.json";
-import StoryBeatNode from "../components/StoryBeatNode";
 
 //DOCUMENTATION: https://reactflow.dev/learn
 

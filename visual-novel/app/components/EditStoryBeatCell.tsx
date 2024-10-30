@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Character, StoryBeat } from "../types";
 import DialogueCell from "./DialogueCell";
+import ChoiceCell from "./ChoiceCell";
 
 interface EditStoryBeatCellProps {
   storyBeat: StoryBeat;
@@ -36,32 +37,15 @@ const StoryBeatCell: FC<EditStoryBeatCellProps> = ({
     ></DialogueCell>
   ));
 
-  const getPossibleStoryBeats = (thisStoryBeatId: string): StoryBeat[] => {
-    return storyBeats.filter((storyBeat) => storyBeat.id !== thisStoryBeatId);
-  };
-
-  const possibleNextBeatsContent = getPossibleStoryBeats(storyBeat.id).map(
-    (storyBeat) => (
-      <option key={storyBeat.id} value={storyBeat.id}>
-        {storyBeat.id}
-      </option>
-    )
-  );
-
   const choiceContent = storyBeat.choices.map((choice, index) => (
-    <div key={choice.id} className="border flex gap-2 p-2">
-      <label htmlFor={`choiceLabel-${choice.id}`}>Choice text</label>
-      <textarea name={`choiceLabel-${choice.id}`} className="border"></textarea>
-      <select id="next-beat-id" name="net-beat-id" className="border">
-        {possibleNextBeatsContent}
-      </select>
-      <button
-        className="border bg-red-400 p-1"
-        onClick={() => deleteChoice(storyBeat, choice.id)}
-      >
-        X
-      </button>
-    </div>
+    <ChoiceCell
+      choice={choice}
+      updateStoryBeat={updateStoryBeat}
+      index={index}
+      storyBeat={storyBeat}
+      storyBeats={storyBeats}
+      deleteChoice={deleteChoice}
+    />
   ));
 
   return (
