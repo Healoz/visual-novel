@@ -1,7 +1,37 @@
 import React, { useCallback } from "react";
-import { Handle, Position } from "@xyflow/react";
+import { Handle, NodeProps, Position, Node } from "@xyflow/react";
+import { Character, StoryBeat } from "../types";
 
-const StoryBeatNode = () => {
+interface StoryBeatNodeData {
+  storyBeat: StoryBeat;
+  characters: Character[];
+  storyBeats: StoryBeat[];
+  createNewDialogue: (storyBeatId: string) => void;
+  createNewChoice: (storyBeatId: string) => void;
+  updateStoryBeat: (storyBeatId: string, updatedStoryBeat: StoryBeat) => void;
+  deleteStoryBeat: (id: string) => void;
+  deleteDialogue: (storyBeat: StoryBeat, dialogueId: string) => void;
+  deleteChoice: (storyBeat: StoryBeat, choiceId: string) => void;
+}
+
+// creating custom node type that extends Node
+
+type StoryBeatNode = Node<
+  {
+    storyBeat: StoryBeat;
+    characters: Character[];
+    storyBeats: StoryBeat[];
+    createNewDialogue: (storyBeatId: string) => void;
+    createNewChoice: (storyBeatId: string) => void;
+    updateStoryBeat: (storyBeatId: string, updatedStoryBeat: StoryBeat) => void;
+    deleteStoryBeat: (id: string) => void;
+    deleteDialogue: (storyBeat: StoryBeat, dialogueId: string) => void;
+    deleteChoice: (storyBeat: StoryBeat, choiceId: string) => void;
+  },
+  "storyBeatNode"
+>;
+
+const StoryBeatNode = (props: NodeProps<StoryBeatNode>) => {
   return (
     <>
       <Handle type="target" position={Position.Top} />
