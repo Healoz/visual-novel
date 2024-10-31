@@ -15,12 +15,13 @@ import {
   Controls,
   MiniMap,
 } from "@xyflow/react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import "@xyflow/react/dist/style.css";
 import { Choice, Story, StoryBeat } from "../types";
 import storyData from "../data/storyData.json";
+import StoryBeatNode from "../components/StoryBeatNode";
 
 //DOCUMENTATION: https://reactflow.dev/learn
 
@@ -28,6 +29,8 @@ export default function FlowTestPage() {
   const [story, setStory] = useState<Story>(storyData);
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+
+  const nodeTypes = useMemo(() => ({ storyBeatNode: StoryBeatNode }), []);
 
   const createNewStoryBeat = () => {
     const newStoryBeat: StoryBeat = {
@@ -61,6 +64,7 @@ export default function FlowTestPage() {
         const position = getRandomPosition();
         return {
           id: storyBeat.id,
+          type: "storyBeatNode",
           position: position,
           data: {
             label: storyBeat.id,
@@ -162,6 +166,7 @@ export default function FlowTestPage() {
         <ReactFlow
           nodes={nodes}
           edges={edges}
+          nodeTypes={nodeTypes}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
