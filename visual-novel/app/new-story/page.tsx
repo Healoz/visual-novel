@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import EditStoryBeatCell from "../components/EditStoryBeatCell";
 import CharacterDisplay from "../components/CharacterDisplay";
 import storyData from "../data/storyData.json";
+import { useStory } from "../utils/StoryContext";
 
 export default function StoryEditorPage() {
   // const [story, setStory] = useState<Story>({
@@ -15,123 +16,25 @@ export default function StoryEditorPage() {
   //   storyBeats: [],
   // });
 
-  const [story, setStory] = useState<Story>(storyData);
+  // const [story, setStory] = useState<Story>(storyData);
 
   const [characterName, setCharacterName] = useState("");
   const [characterColor, setCharacterColor] = useState("#000000"); // default color
 
-  // Functions for creating and editing storybeats
-  const updateStoryBeat = (
-    storyBeatId: string,
-    updatedStoryBeat: StoryBeat
-  ) => {
-    const updatedStoryBeats = story.storyBeats.map((storyBeat) =>
-      storyBeat.id === storyBeatId ? updatedStoryBeat : storyBeat
-    );
-    setStory({ ...story, storyBeats: updatedStoryBeats });
-  };
-
-  const createNewStoryBeat = () => {
-    const newStoryBeat: StoryBeat = {
-      id: uuidv4(),
-      dialogue: [],
-      choices: [],
-    };
-
-    setStory({ ...story, storyBeats: [...story.storyBeats, newStoryBeat] });
-  };
-
-  // delete storyBeat
-  const deleteStoryBeat = (id: string) => {
-    setStory((prevStory) => ({
-      ...prevStory,
-      storyBeats: prevStory.storyBeats.filter(
-        (storyBeat) => storyBeat.id !== id
-      ),
-    }));
-  };
-
-  // delete dialogue
-  const deleteDialogue = (storyBeat: StoryBeat, dialogueId: string) => {
-    const updatedDialogue = storyBeat.dialogue.filter(
-      (singleDialogue) => singleDialogue.id !== dialogueId
-    );
-
-    updateStoryBeat(storyBeat.id, {
-      ...storyBeat,
-      dialogue: updatedDialogue,
-    });
-  };
-
-  // delete choice
-  const deleteChoice = (storyBeat: StoryBeat, choiceId: string) => {
-    const updatedChoices = storyBeat.choices.filter(
-      (choice) => choice.id !== choiceId
-    );
-
-    updateStoryBeat(storyBeat.id, {
-      ...storyBeat,
-      choices: updatedChoices,
-    });
-  };
-
-  // Creates a blank Choice
-  const createNewChoice = (storyBeatId: string) => {
-    const newChoice: Choice = {
-      id: uuidv4(),
-      label: "",
-      nextBeatId: "",
-    };
-
-    const updatedStoryBeats = story.storyBeats.map((storyBeat) => {
-      if (storyBeat.id === storyBeatId) {
-        return {
-          ...storyBeat,
-          choices: [...storyBeat.choices, newChoice],
-        };
-      }
-      return storyBeat;
-    });
-
-    setStory({ ...story, storyBeats: updatedStoryBeats });
-  };
-
-  // Creates a blank Dialogue
-  const createNewDialogue = (storyBeatId: string) => {
-    const newDialogue: Dialogue = {
-      id: uuidv4(),
-      line: "",
-    };
-
-    const updatedStoryBeats = story.storyBeats.map((storyBeat) => {
-      if (storyBeat.id === storyBeatId) {
-        return {
-          ...storyBeat,
-          dialogue: [...storyBeat.dialogue, newDialogue],
-        };
-      }
-      return storyBeat;
-    });
-
-    setStory({ ...story, storyBeats: updatedStoryBeats });
-  };
-
-  const handleCreateCharacter = () => {
-    // dont allow empty names
-    if (characterName.trim() === "") return;
-
-    const newCharacter: Character = {
-      id: uuidv4(),
-      name: characterName,
-      color: characterColor,
-    };
-
-    setStory({ ...story, characters: [...story.characters, newCharacter] });
-
-    // reset inputs
-    setCharacterName("");
-    setCharacterColor("#000000");
-  };
+  const {
+    story,
+    setStory,
+    storyBeats,
+    characters,
+    createNewStoryBeat,
+    updateStoryBeat,
+    deleteStoryBeat,
+    createNewDialogue,
+    deleteDialogue,
+    createNewChoice,
+    deleteChoice,
+    handleCreateCharacter,
+  } = useStory();
 
   const storyBeatsContent = story.storyBeats.map((storyBeat) => (
     <EditStoryBeatCell
@@ -155,7 +58,14 @@ export default function StoryEditorPage() {
         story={story}
         characterColor={characterColor}
         characterName={characterName}
-        handleCreateCharacter={handleCreateCharacter}
+        handleCreateCharacter={() =>
+          handleCreateCharacter(
+            characterName,
+            characterColor,
+            setCharacterName,
+            setCharacterColor
+          )
+        }
         setCharacterName={setCharacterName}
         setCharacterColor={setCharacterColor}
       />

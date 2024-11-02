@@ -22,25 +22,31 @@ import "@xyflow/react/dist/style.css";
 import { Choice, Story, StoryBeat } from "../types";
 import storyData from "../data/storyData.json";
 import StoryBeatNode from "../components/StoryBeatNode";
+import { StoryProvider, useStory } from "../utils/StoryContext";
 
 //DOCUMENTATION: https://reactflow.dev/learn
 
 export default function FlowTestPage() {
-  const [story, setStory] = useState<Story>(storyData);
+  // const [story, setStory] = useState<Story>(storyData);
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
 
+  const {
+    story,
+    setStory,
+    storyBeats,
+    characters,
+    createNewStoryBeat,
+    updateStoryBeat,
+    deleteStoryBeat,
+    createNewDialogue,
+    deleteDialogue,
+    createNewChoice,
+    deleteChoice,
+    handleCreateCharacter,
+  } = useStory();
+
   const nodeTypes = useMemo(() => ({ storyBeatNode: StoryBeatNode }), []);
-
-  const createNewStoryBeat = () => {
-    const newStoryBeat: StoryBeat = {
-      id: uuidv4(),
-      dialogue: [],
-      choices: [],
-    };
-
-    setStory({ ...story, storyBeats: [...story.storyBeats, newStoryBeat] });
-  };
 
   // creating nodes functions
   const createNodesFromStoryBeats = useCallback(
@@ -67,7 +73,15 @@ export default function FlowTestPage() {
           type: "storyBeatNode",
           position: position,
           data: {
-            label: storyBeat.id,
+            storyBeat: storyBeat,
+            characters: characters,
+            storyBeats: storyBeats,
+            createNewDialogue: createNewDialogue,
+            createNewChoice: createNewChoice,
+            updateStoryBeat: updateStoryBeat,
+            deleteStoryBeat: deleteStoryBeat,
+            deleteDialogue: deleteDialogue,
+            deleteChoice: deleteChoice,
           },
         };
       });

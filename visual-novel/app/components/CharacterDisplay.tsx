@@ -4,7 +4,12 @@ import { Story } from "../types";
 interface CharacterDisplayProps {
   characterName: string;
   characterColor: string;
-  handleCreateCharacter: () => void;
+  handleCreateCharacter: (
+    characterName: string,
+    characterColor: string,
+    setCharacterName: (name: string) => void,
+    setCharacterColor: (color: string) => void
+  ) => void;
   setCharacterColor: (color: string) => void;
   setCharacterName: (name: string) => void;
   story: Story;
@@ -37,7 +42,17 @@ const CharacterDisplay: FC<CharacterDisplayProps> = ({
         value={characterColor}
         onChange={(e) => setCharacterColor(e.target.value)}
       ></input>
-      <button className="border p-2" onClick={handleCreateCharacter}>
+      <button
+        className="border p-2"
+        onClick={() =>
+          handleCreateCharacter(
+            characterName,
+            characterColor,
+            setCharacterName,
+            setCharacterColor
+          )
+        }
+      >
         Create character
       </button>
       {story.characters.length >= 1 ? (
