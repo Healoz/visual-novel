@@ -105,10 +105,16 @@ const DialogueCell: FC<DialogueCellProps> = ({
   return (
     <div key={dialogue.id} className="flex gap-3">
       <div className="flex flex-col">
-        <button className="w-20 border" onClick={() => moveDialogueUp(index)}>
+        <button
+          className="w-20 border nodrag"
+          onClick={() => moveDialogueUp(index)}
+        >
           ^
         </button>
-        <button className="w-20 border" onClick={() => moveDialogueDown(index)}>
+        <button
+          className="w-20 border nodrag"
+          onClick={() => moveDialogueDown(index)}
+        >
           v
         </button>
       </div>
@@ -116,7 +122,7 @@ const DialogueCell: FC<DialogueCellProps> = ({
         <select
           id="character-speaking"
           name="character-speaking"
-          className="border"
+          className="border nodrag"
           onChange={handleCharacterChange}
           value={dialogue.character ? dialogue.character.name : "narrator"} // Set value to narrator if no character is selected
           style={{ color: dialogue.character?.color }}
@@ -130,8 +136,8 @@ const DialogueCell: FC<DialogueCellProps> = ({
           {characterOptions}
         </select>
         <textarea
-          className="border flex p-2"
-          value={dialogue.line}
+          className="border flex p-2 nodrag"
+          value={dialogue.line || ""}
           onChange={handleDialogueChange}
           placeholder="dialogue"
         ></textarea>
